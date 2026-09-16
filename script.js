@@ -355,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderCertifications();
   renderAchievements();
-  renderResume();
   renderContact();
   renderFooter();
   initVisitorCounter();
