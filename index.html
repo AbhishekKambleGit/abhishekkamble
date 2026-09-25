@@ -8,6 +8,7 @@
   <meta name="author" content="Abhishek Kamble" />
   <meta property="og:title" content="Abhishek Kamble | Software Developer & Cloud Enthusiast" />
   <meta property="og:description" content="Portfolio of Abhishek Kamble – Full Stack, Java, Cloud & Automation developer." />
+  <meta property="og:image" content="assets/images/profile.jpg" />
   <meta property="og:type" content="website" />
   <title>Abhishek Kamble | Software Developer & Cloud Enthusiast</title>
 
@@ -670,15 +671,28 @@
   <!-- ============================================================
        ACHIEVEMENTS SECTION
   ============================================================ -->
-  <section id="achievements" class="section-pad section-alt" aria-label="Achievements">
+  <section id="achievements" class="achievements-section" aria-label="Achievements">
     <div class="container-main">
-      <div class="section-header" data-aos="fade-up">
-        <span class="section-tag">Milestones</span>
-        <h2 class="section-title">My <span class="text-gradient">Achievements</span></h2>
-        <p class="section-subtitle">Highlights from my academic and professional journey</p>
+      <div class="achievements-header text-center" data-aos="fade-up">
+        <h2 class="achievements-title">Achievements</h2>
+        <div class="achievements-bar"></div>
+        <p class="achievements-subtitle">Competition wins &amp; professional recognitions</p>
       </div>
-      <!-- Achievements list injected by script.js -->
-      <div id="achievements-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="100"></div>
+
+      <!-- Horizontal Carousel Slider -->
+      <div class="achievements-carousel-wrapper" data-aos="fade-up" data-aos-delay="100">
+        <button class="achievements-nav-btn achievements-prev-btn" id="achievements-prev" aria-label="Previous achievements">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div id="achievements-track" class="achievements-track" tabindex="0" role="region" aria-label="Achievements carousel">
+          <!-- Cards injected by script.js -->
+        </div>
+
+        <button class="achievements-nav-btn achievements-next-btn" id="achievements-next" aria-label="Next achievements">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
   </section>
 

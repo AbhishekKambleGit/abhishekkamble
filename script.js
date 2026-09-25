@@ -214,56 +214,44 @@ const portfolioData = {
   /* --- Achievements --- */
   achievements: [
     {
-      title:       '🥈 Second Prize – Dexter InnoFest',
-      description: 'Secured Second Prize at the National Level Programming Competition – Dexter InnoFest 2024–25 (Genius Ideas), organized by the Dept. of CS & CA, Punyashlok Ahilyadevi Holkar Solapur University.',
-      year:        'Mar 2025',
-      icon:        'fa-solid fa-medal',
-      image:       'images/achievements/dexter-innofest.jpg',
+      id:           'ach-dexter',
+      year:         'Mar 2025',
+      title:        '🥈 Second Prize – Dexter InnoFest',
+      organization: 'Dept. of CS & CA, Punyashlok Ahilyadevi Holkar Solapur University',
+      description:  'Secured Second Prize at the National Level Programming Competition – Dexter InnoFest 2024–25 (Genius Ideas), organized by the Dept. of CS & CA, Punyashlok Ahilyadevi Holkar Solapur University.',
+      image:        'images/achievements/dexter-innofest.jpg',
+      fullImage:    'certificate/Achievements/WhatsApp Image 2025-05-09 at 12.20.14 PM (1).jpeg',
+      icon:         'fa-solid fa-medal',
     },
     {
-      title:       '🥇 Winner – Tech-Master 2K25',
-      description: 'Won First Place at Tech-Master 2K25, 5th District Level Inter-Collegiate C-Programming Competition (BCA Section), organized by Hirachand Nemchand College of Commerce, Solapur.',
-      year:        'Mar 2025',
-      icon:        'fa-solid fa-trophy',
-      image:       'images/achievements/tech-master.jpg',
+      id:           'ach-techmaster',
+      year:         'Mar 2025',
+      title:        '🥇 Winner – Tech-Master 2K25',
+      organization: 'Hirachand Nemchand College of Commerce, Solapur',
+      description:  'Won First Place at Tech-Master 2K25, 5th District Level Inter-Collegiate C-Programming Competition (BCA Section), organized by Hirachand Nemchand College of Commerce, Solapur.',
+      image:        'images/achievements/tech-master.jpg',
+      fullImage:    'certificate/Achievements/WhatsApp Image 2025-05-09 at 12.20.09 PM.jpeg',
+      icon:         'fa-solid fa-trophy',
     },
     {
-      title:       '🥇 Winner – CODEBATE 2k24',
-      description: 'Secured First Place at CODEBATE-2k24, organized by the Computer Science Department, Prin. K. P. Mangalvedhekar Institute of Management & Career Development and Research, Solapur.',
-      year:        'Oct 2024',
-      icon:        'fa-solid fa-code',
-      image:       'images/achievements/codebate.jpg',
+      id:           'ach-codebate',
+      year:         'Oct 2024',
+      title:        '🥇 Winner – CODEBATE 2k24',
+      organization: 'Prin. K. P. Mangalvedhekar Institute, Solapur',
+      description:  'Secured First Place at CODEBATE-2k24, organized by the Computer Science Department, Prin. K. P. Mangalvedhekar Institute of Management & Career Development and Research, Solapur.',
+      image:        'images/achievements/codebate.jpg',
+      fullImage:    'certificate/Achievements/WhatsApp Image 2025-05-09 at 12.20.14 PM.jpeg',
+      icon:         'fa-solid fa-code',
     },
     {
-      title:       'Problem Solver',
-      description: 'Solved 200+ coding problems on LeetCode and HackerRank.',
-      year:        '2024',
-      icon:        'fa-solid fa-laptop-code',
-    },
-    {
-      title:       'Open Source Contributor',
-      description: 'Contributed to multiple open-source Java and Python projects.',
-      year:        '2024',
-      icon:        'fa-brands fa-github',
-    },
-    {
-      title:       'Cloud Certified',
-      description: 'Achieved AWS Cloud Practitioner certification.',
-      year:        '2024',
-      icon:        'fa-brands fa-aws',
-    },
-    {
-      title:       '🌐 Participant – San Pratibha Shodh 2k24',
-      description: 'Participated in the District Level Inter-Collegiate Web Page Designing Competition at San Pratibha Shodh 2k24, organized by Sangameshwar College (Autonomous), Solapur.',
-      year:        'Jan 2024',
-      icon:        'fa-solid fa-globe',
-      image:       'images/achievements/san-pratibha-shodh.jpg',
-    },
-    {
-      title:       'Academic Excellence',
-      description: 'Consistently maintained top academic performance throughout engineering.',
-      year:        '2023',
-      icon:        'fa-solid fa-graduation-cap',
+      id:           'ach-san-pratibha',
+      year:         'Jan 2024',
+      title:        '🏆 First Consolation Prize – San Pratibha Shodh 2k24',
+      organization: 'Sangameshwar College, Solapur (Autonomous)',
+      description:  'I secured the First Consolation Prize in the District Level Inter-Collegiate Web Page Designing Competition, held at Sangameshwar College, Solapur, as part of the San Pratibha Shodh 2k24 event. The competition showcased my creativity and technical web development skills among participants from various institutes.',
+      image:        'images/achievements/san-pratibha-shodh.jpg',
+      fullImage:    'certificate/Achievements/WhatsApp Image 2025-05-09 at 12.20.08 PM.jpeg',
+      icon:         'fa-solid fa-award',
     },
   ],
 
@@ -355,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderCertifications();
   renderAchievements();
+  initAchievementsCarousel();
   renderContact();
   renderFooter();
   initVisitorCounter();
@@ -1205,27 +1194,30 @@ function _setText(sel, val) {
    13. RENDER ACHIEVEMENTS
 --------------------------------------------------------------- */
 function renderAchievements() {
-  const container = document.getElementById('achievements-grid');
+  const container = document.getElementById('achievements-track') || document.getElementById('achievements-grid');
   if (!container) return;
 
-  container.innerHTML = portfolioData.achievements.map(ach => `
-    <div class="achievement-card-premium glass-card-hover" data-aos="fade-up">
-      ${ach.image ? `
-      <div class="achievement-cert-thumb" onclick="openCertLightbox('${ach.image}', '${ach.title.replace(/'/g, "\\'")}')"
+  container.innerHTML = portfolioData.achievements.map((ach, idx) => `
+    <article class="achievement-card-slide" data-aos="fade-up" data-aos-delay="${idx * 80}">
+      <div class="achievement-card-media" onclick="openCertLightbox('${ach.fullImage || ach.image}', '${ach.title.replace(/'/g, "\\'")}')"
            role="button" tabindex="0" aria-label="View certificate for ${ach.title.replace(/'/g, '')}">
-        <img src="${ach.image}" alt="${ach.title} certificate" loading="lazy" />
-        <div class="achievement-cert-overlay">
+        <img src="${ach.image}" alt="${ach.title}" loading="lazy" />
+        <div class="achievement-media-badge">
           <i class="fa-solid fa-expand"></i>
           <span>View Certificate</span>
         </div>
-      </div>` : ''}
-      <div class="achievement-icon-box">
-        <i class="${ach.icon}"></i>
       </div>
-      <span class="achievement-year">${ach.year}</span>
-      <h3 class="achievement-title-premium">${ach.title}</h3>
-      <p class="achievement-desc-premium">${ach.description}</p>
-    </div>
+      <div class="achievement-card-info">
+        <span class="achievement-tag-year">${ach.year}</span>
+        <h3 class="achievement-card-heading">${ach.title}</h3>
+        <p class="achievement-card-org">${ach.organization || ''}</p>
+        <p class="achievement-card-description">${ach.description}</p>
+        <button class="achievement-cert-btn" type="button"
+                onclick="openCertLightbox('${ach.fullImage || ach.image}', '${ach.title.replace(/'/g, "\\'")}')">
+          <i class="fa-solid fa-certificate"></i> View Full Certificate
+        </button>
+      </div>
+    </article>
   `).join('');
 
   /* ── Certificate Lightbox (injected once) ── */
@@ -1245,6 +1237,77 @@ function renderAchievements() {
     `;
     document.body.appendChild(lb);
   }
+}
+
+/* ---------------------------------------------------------------
+   13.1. ACHIEVEMENTS CAROUSEL CONTROLLER
+--------------------------------------------------------------- */
+function initAchievementsCarousel() {
+  const track = document.getElementById('achievements-track');
+  const prevBtn = document.getElementById('achievements-prev');
+  const nextBtn = document.getElementById('achievements-next');
+  if (!track) return;
+
+  const scrollStep = 300;
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: scrollStep, behavior: 'smooth' });
+    });
+  }
+
+  // Mouse Drag-to-scroll support
+  let isDown = false;
+  let startX = 0;
+  let scrollStart = 0;
+  let hasMoved = false;
+
+  track.addEventListener('mousedown', (e) => {
+    isDown = true;
+    hasMoved = false;
+    track.classList.add('is-dragging');
+    startX = e.pageX - track.offsetLeft;
+    scrollStart = track.scrollLeft;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (isDown) {
+      isDown = false;
+      track.classList.remove('is-dragging');
+    }
+  });
+
+  track.addEventListener('mouseleave', () => {
+    if (isDown) {
+      isDown = false;
+      track.classList.remove('is-dragging');
+    }
+  });
+
+  track.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.3;
+    if (Math.abs(walk) > 4) {
+      hasMoved = true;
+      e.preventDefault();
+      track.scrollLeft = scrollStart - walk;
+    }
+  });
+
+  // Prevent accidental card click during drag
+  track.addEventListener('click', (e) => {
+    if (hasMoved) {
+      e.stopPropagation();
+      e.preventDefault();
+      hasMoved = false;
+    }
+  }, true);
 }
 
 
