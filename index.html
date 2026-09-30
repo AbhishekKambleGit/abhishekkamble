@@ -551,44 +551,20 @@
   </section>
 
   <!-- ============================================================
-       EDUCATION JOURNEY SECTION
+       EDUCATION SECTION
   ============================================================ -->
-  <section id="education" class="edu-journey-section" aria-label="Education Journey">
-    <!-- Scroll zone provides 380vh so sticky stage animates across 280vh of scroll -->
-    <div class="edu-scroll-zone" id="edu-scroll-zone">
-      <div class="edu-sticky-stage" id="edu-sticky-stage">
-
-        <!-- Section header (inside sticky stage) -->
-        <div class="container-main edu-header-inner">
-          <div class="section-header">
-            <span class="section-tag">My Academic Path</span>
-            <h2 class="section-title">Education <span class="text-gradient">Journey</span></h2>
-            <p class="section-subtitle">Each coach carries a chapter of my academic growth</p>
-          </div>
-          <div class="edu-journey-progress-track">
-            <div class="edu-journey-progress-fill" id="edu-journey-progress-fill"></div>
-          </div>
-          <p class="edu-scroll-hint" id="edu-scroll-hint" aria-hidden="true">
-            <i class="fa-solid fa-chevron-down"></i>&nbsp;Scroll to travel through my journey
-          </p>
+  <section id="education" class="section-pad section-alt education-diagonal-section" aria-label="Education">
+    <div class="container-main">
+      <div class="section-header text-center edu-header-center" data-aos="fade-up">
+        <div class="edu-cap-icon-box" aria-hidden="true">
+          <i class="fa-solid fa-graduation-cap"></i>
         </div>
-
-        <!-- Railway scene: track + moving train -->
-        <div class="edu-railway-scene" id="edu-railway-scene">
-
-          <!-- Track (always full width) -->
-          <div class="edu-track-layer" aria-hidden="true">
-            <div class="edu-rail edu-rail--top"></div>
-            <div class="edu-rail edu-rail--bottom"></div>
-          </div>
-
-          <!-- Train belt: this element translates on scroll -->
-          <div class="edu-train-belt" id="edu-train-belt" aria-label="Education journey as a train">
-            <!-- Engine + Couplers + Coaches injected by initEducationJourney() -->
-          </div>
-
-        </div>
+        <h2 class="section-title edu-image-title">Edu<span class="text-gradient">cation</span></h2>
+        <div class="edu-title-accent-pill" aria-hidden="true"></div>
       </div>
+
+      <!-- Diagonal timeline diagram matching user design -->
+      <div id="education-waterfall" class="education-diagonal-timeline" data-aos="fade-up" data-aos-delay="100"></div>
     </div>
   </section>
 

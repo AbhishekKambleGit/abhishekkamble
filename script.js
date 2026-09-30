@@ -1626,189 +1626,218 @@ function initGitHubSection() {
 
 
 /* ---------------------------------------------------------------
-   19. EDUCATION JOURNEY – TRAIN TIMELINE v2 (Coach = Milestone)
+   19. EDUCATION SECTION – DIAGONAL TIMELINE (Image Replica)
 --------------------------------------------------------------- */
-function initEducationJourney() {
-  const belt = document.getElementById('edu-train-belt');
-  if (!belt) return;
+function renderEducation() {
+  const container = document.getElementById('education-waterfall') || document.getElementById('education-timeline');
+  if (!container) return;
 
-  /* ── 1. Engine HTML (nose faces LEFT = direction of travel) ── */
-  const engineHTML = `
-    <div class="edu-engine" id="edu-engine" aria-label="Locomotive">
-      <div class="edu-engine-top">
-        <div class="edu-chimney" aria-hidden="true">
-          <div class="edu-smoke-puff"></div>
-          <div class="edu-smoke-puff"></div>
-          <div class="edu-smoke-puff"></div>
+  const items = [
+    {
+      shortTitle:  'MCA',
+      degree:      'Master of Computer Applications (MCA)',
+      institution: 'MIT Vishwaprayag University',
+      location:    'Solapur, Maharashtra',
+      duration:    '2025 – 2027',
+      grade:       null,
+      current:     true,
+      icon:        'fa-solid fa-graduation-cap',
+      color:       '#8B5CF6',
+      tint:        'rgba(139, 92, 246, 0.15)',
+      ring:        'rgba(139, 92, 246, 0.25)',
+      description: 'Currently pursuing MCA with specialization in Cloud Computing, Full Stack Development and AI/ML. Working on industry-level projects and collaborating with organizations.',
+      highlights:  ['Cloud Computing', 'AI / ML', 'Industry Collaborations'],
+    },
+    {
+      shortTitle:  'BCA',
+      degree:      'Bachelor of Computer Applications (BCA)',
+      institution: 'Prin K.P. Mangalvedhekar Institute of Management C D & R',
+      location:    'Solapur, Maharashtra',
+      duration:    '2022 – 2025',
+      grade:       '73.60%',
+      current:     false,
+      icon:        'fa-solid fa-graduation-cap',
+      color:       '#0284C7',
+      tint:        'rgba(2, 132, 199, 0.15)',
+      ring:        'rgba(2, 132, 199, 0.25)',
+      description: 'Pursued BCA with deep focus on programming, databases, web development and software engineering. Won multiple coding competitions during this period.',
+      highlights:  ['Full Stack Dev', 'Database Design', 'Coding Competitions Winner'],
+    },
+    {
+      shortTitle:  'HSC (12th)',
+      degree:      'HSC – 12th Standard (Science Stream)',
+      institution: 'Kuchan Junior College / Maharashtra State Board',
+      location:    'Solapur, Maharashtra',
+      duration:    '2020 – 2022',
+      grade:       '53.17%',
+      current:     false,
+      icon:        'fa-solid fa-book-open',
+      color:       '#10B981',
+      tint:        'rgba(16, 185, 129, 0.15)',
+      ring:        'rgba(16, 185, 129, 0.25)',
+      description: 'Completed higher secondary education with a Science stream, strengthening analytical thinking and problem-solving skills.',
+      highlights:  ['Science Stream', 'Analytical Thinking'],
+    },
+    {
+      shortTitle:  'SSC (10th)',
+      degree:      'SSC – 10th Standard',
+      institution: 'Kuchan High School / Maharashtra State Board',
+      location:    'Solapur, Maharashtra',
+      duration:    '2010 – 2020',
+      grade:       '55.60%',
+      current:     false,
+      icon:        'fa-solid fa-book-open',
+      color:       '#F59E0B',
+      tint:        'rgba(245, 158, 11, 0.15)',
+      ring:        'rgba(245, 158, 11, 0.25)',
+      description: 'Built the foundational academic base with core subjects in Science and Mathematics, igniting a curiosity for technology and computing.',
+      highlights:  ['Core Science & Maths', 'Foundation for Tech'],
+    },
+  ];
+
+  /* Build Rows */
+  const rowsHTML = items.map((item, idx) => `
+    <div class="edu-diag-row edu-diag-row--${idx} ${item.current ? 'edu-diag-row--current' : ''}" data-aos="fade-up" data-aos-delay="${idx * 80}">
+      
+      <!-- Axis Node & Stem -->
+      <div class="edu-diag-track" aria-hidden="true">
+        <div class="edu-diag-node" style="border-color: ${item.color}; background: ${item.ring};">
+          <div class="edu-diag-dot" style="background: ${item.color};"></div>
         </div>
+        <div class="edu-diag-stem" style="background: ${item.color};"></div>
+        <div class="edu-diag-pin" style="background: ${item.color};"></div>
       </div>
-      <div class="edu-engine-mid">
-        <div class="edu-engine-nose">
-          <div class="edu-headlight" aria-hidden="true"></div>
-        </div>
-        <div class="edu-engine-body">
-          <div class="edu-engine-cab-windows">
-            <div class="edu-eng-win"></div>
-            <div class="edu-eng-win"></div>
-          </div>
-          <div class="edu-engine-nameplate">
-            <i class="fa-solid fa-train-subway" aria-hidden="true"></i>
-            <span>LEARNING<br>JOURNEY</span>
-          </div>
-        </div>
-      </div>
-      <div class="edu-engine-chassis" aria-hidden="true">
-        <div class="edu-wheel-truck">
-          <div class="edu-wheel edu-wheel--lg"><div class="edu-w-hub"></div></div>
-          <div class="edu-wheel edu-wheel--lg"><div class="edu-w-hub"></div></div>
-        </div>
-        <div class="edu-wheel-truck">
-          <div class="edu-wheel edu-wheel--lg"><div class="edu-w-hub"></div></div>
-          <div class="edu-wheel edu-wheel--lg"><div class="edu-w-hub"></div></div>
-        </div>
-      </div>
-    </div>`;
 
-  /* ── 2. Coach HTML for each education milestone ── */
-  const coachesHTML = portfolioData.education.map((item, idx) => `
-    <div class="edu-coupler-joint" aria-hidden="true">
-      <div class="edu-coupler-body"></div>
-    </div>
-    <div class="edu-coach ${item.current ? 'edu-coach--current' : ''}"
-         id="${item.id}" data-idx="${idx}"
-         role="article" aria-label="${item.degree}">
-
-      ${item.current
-        ? `<div class="edu-coach-badge edu-badge-current">
-             <span class="edu-badge-dot" aria-hidden="true"></span>Currently Pursuing
-           </div>`
-        : `<div class="edu-coach-badge edu-badge-done">
-             <i class="fa-solid fa-check" aria-hidden="true"></i> Completed
-           </div>`}
-
-      <div class="edu-coach-roof" aria-hidden="true">
-        <div class="edu-roof-vent"></div>
-        <div class="edu-roof-vent"></div>
-      </div>
-
-      <div class="edu-coach-wall">
-        <div class="edu-coach-stripe-top"></div>
-
-        <div class="edu-coach-win-row" aria-hidden="true">
-          <div class="edu-coach-win"></div>
-          <div class="edu-coach-win"></div>
-          <div class="edu-coach-win"></div>
-        </div>
-
-        <div class="edu-coach-num">Coach 0${idx + 1}</div>
-
-        <div class="edu-coach-info-panel">
-          <div class="edu-coach-icon-cell">
+      <!-- Compact Card (Click to expand details) -->
+      <div class="edu-diag-card glass-card-hover" role="button" tabindex="0" aria-expanded="false" aria-label="${item.shortTitle} - Click to toggle details" style="--card-color: ${item.color}; --card-tint: ${item.tint};">
+        
+        <!-- Summary Row (Matches uploaded image) -->
+        <div class="edu-diag-summary">
+          <div class="edu-diag-icon-cell" style="background: ${item.tint}; color: ${item.color};">
             <i class="${item.icon}" aria-hidden="true"></i>
           </div>
-          <h3 class="edu-coach-deg">${item.degree}</h3>
-          <p class="edu-coach-inst">${item.institution}</p>
-          <div class="edu-coach-pills">
-            ${item.grade
-              ? `<span class="edu-pill edu-pill--grade">
-                   <i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>${item.grade}
-                 </span>`
-              : ''}
-            <span class="edu-pill edu-pill--time">
-              <i class="fa-regular fa-calendar" aria-hidden="true"></i>${item.duration}
-            </span>
+
+          <div class="edu-diag-info-cell">
+            <div class="edu-diag-badge-row">
+              <span class="edu-diag-year-pill" style="background: ${item.tint}; color: ${item.color};">
+                ${item.duration}
+              </span>
+              <span class="edu-diag-chevron" aria-hidden="true">
+                <i class="fa-solid fa-chevron-down"></i>
+              </span>
+            </div>
+
+            <h3 class="edu-diag-title">${item.shortTitle}</h3>
+            <p class="edu-diag-inst" title="${item.institution}">${item.institution}</p>
+            <p class="edu-diag-loc">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${item.location}
+            </p>
           </div>
         </div>
 
-        <div class="edu-coach-stripe-bottom"></div>
-      </div>
+        <!-- Collapsible Details Drawer (Revealed on click) -->
+        <div class="edu-diag-details">
+          <div class="edu-diag-details-inner">
+            <div class="edu-diag-details-content">
+              
+              <div class="edu-diag-meta-pills">
+                ${item.current 
+                  ? `<span class="edu-diag-status-pill edu-diag-status--active">
+                       <span class="edu-diag-pulse"></span> Currently Pursuing
+                     </span>`
+                  : `<span class="edu-diag-status-pill edu-diag-status--done">
+                       <i class="fa-solid fa-circle-check"></i> Completed
+                     </span>`}
+                ${item.grade ? `
+                  <span class="edu-diag-status-pill edu-diag-status--grade">
+                    <i class="fa-solid fa-award"></i> Grade: <strong>${item.grade}</strong>
+                  </span>` : ''}
+              </div>
 
-      <div class="edu-coach-chassis" aria-hidden="true">
-        <div class="edu-wheel-truck">
-          <div class="edu-wheel"><div class="edu-w-hub"></div></div>
-          <div class="edu-wheel"><div class="edu-w-hub"></div></div>
+              <p class="edu-diag-full-degree">
+                <i class="fa-solid fa-certificate" aria-hidden="true"></i> ${item.degree}
+              </p>
+
+              <p class="edu-diag-desc">${item.description}</p>
+
+              ${item.highlights && item.highlights.length ? `
+                <div class="edu-diag-tags">
+                  ${item.highlights.map(h => `<span class="edu-diag-tag">${h}</span>`).join('')}
+                </div>` : ''}
+
+            </div>
+          </div>
         </div>
-        <div class="edu-wheel-truck">
-          <div class="edu-wheel"><div class="edu-w-hub"></div></div>
-          <div class="edu-wheel"><div class="edu-w-hub"></div></div>
-        </div>
+
       </div>
-    </div>`).join('');
+    </div>
+  `).join('');
 
-  belt.innerHTML = engineHTML + coachesHTML;
+  container.innerHTML = `
+    <div class="edu-diag-container">
+      <svg class="edu-diag-svg-axis" aria-hidden="true">
+        <line id="edu-diag-axis-line" stroke="rgba(203, 213, 225, 0.28)" stroke-width="2.5" stroke-linecap="round"></line>
+      </svg>
+      <div class="edu-diag-rows">
+        ${rowsHTML}
+      </div>
+    </div>
+  `;
 
-  /* ── 3. Continuous auto-animation (requestAnimationFrame) ── */
-  const progressFill = document.getElementById('edu-journey-progress-fill');
-  const scrollHint   = document.getElementById('edu-scroll-hint');
-
-  /* Hide scroll hint – no scrolling needed */
-  if (scrollHint) scrollHint.style.display = 'none';
-
-  let rafId     = null;
-  let startTime = null;
-
-  /*
-   * Period: 20 seconds for one full forward+backward cycle.
-   * Marquee style — constant linear speed, instant wrap-around.
-   */
-  const MARQUEE_MS = 25000;  // ms for one full left-to-right pass
-
-  function animate(ts) {
-    if (startTime === null) startTime = ts;
-    /* Linear 0 → 1, then instantly back to 0 (marquee wrap) */
-    const progress = ((ts - startTime) % MARQUEE_MS) / MARQUEE_MS;
-
-    const isMobile = window.innerWidth < 768;
-
-    if (!isMobile) {
-      /* Desktop/Tablet:
-         Enters from RIGHT edge → exits past LEFT edge.
-         startX =  vw           (belt left-edge just off-screen right)
-         endX   = -beltW        (belt right-edge just off-screen left)
-         translateX = startX - progress * (vw + beltW)               */
-      const beltW  = belt.scrollWidth;
-      const vw     = window.innerWidth;
-      belt.style.transform = `translateX(${vw - progress * (vw + beltW)}px)`;
-    } else {
-      /* Mobile: enters from BOTTOM, exits TOP */
-      const scene  = document.getElementById('edu-railway-scene');
-      const sceneH = scene ? scene.offsetHeight : window.innerHeight;
-      const beltH  = belt.scrollHeight;
-      belt.style.transform = `translateY(${sceneH - progress * (sceneH + beltH)}px)`;
-    }
-
-    /* Progress bar */
-    if (progressFill) progressFill.style.width = `${progress * 100}%`;
-
-    /* Light up coaches progressively */
-    const coaches = belt.querySelectorAll('.edu-coach');
-    coaches.forEach((coach, idx) => {
-      const threshold = 0.08 + (idx / coaches.length) * 0.72;
-      coach.classList.toggle('edu-coach--lit', progress >= threshold);
+  /* Interactive Click & Keyboard Handlers */
+  const cards = container.querySelectorAll('.edu-diag-card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const isExpanded = card.classList.contains('edu-diag-card--expanded');
+      card.classList.toggle('edu-diag-card--expanded');
+      card.setAttribute('aria-expanded', !isExpanded);
+      requestAnimationFrame(updateAxisLine);
     });
 
-    rafId = requestAnimationFrame(animate);
-  }
-
-  /* ── 4. Start / stop animation based on visibility ── */
-  const section = document.getElementById('education');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        if (!rafId) {
-          startTime = null;               // restart cycle when re-entering
-          rafId = requestAnimationFrame(animate);
-        }
-      } else {
-        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
       }
     });
-  }, { threshold: 0.1 });
+  });
 
-  if (section) io.observe(section);
+  /* Calculate dynamic SVG diagonal line passing through all node centers */
+  function updateAxisLine() {
+    const svgLine = document.getElementById('edu-diag-axis-line');
+    const nodes = container.querySelectorAll('.edu-diag-node');
+    const wrapper = container.querySelector('.edu-diag-container');
+    if (!svgLine || nodes.length < 2 || !wrapper) return;
 
-  /* Recalculate max travel on resize */
-  window.addEventListener('resize', () => { startTime = null; }, { passive: true });
+    const wrapRect = wrapper.getBoundingClientRect();
+    const firstRect = nodes[0].getBoundingClientRect();
+    const lastRect = nodes[nodes.length - 1].getBoundingClientRect();
+
+    const x1 = firstRect.left + firstRect.width / 2 - wrapRect.left;
+    const y1 = firstRect.top + firstRect.height / 2 - wrapRect.top;
+    const x2 = lastRect.left + lastRect.width / 2 - wrapRect.left;
+    const y2 = lastRect.top + lastRect.height / 2 - wrapRect.top;
+
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len === 0) return;
+
+    const ext = window.innerWidth >= 821 ? 38 : 16;
+
+    svgLine.setAttribute('x1', x1 - (dx / len) * ext);
+    svgLine.setAttribute('y1', y1 - (dy / len) * ext);
+    svgLine.setAttribute('x2', x2 + (dx / len) * ext);
+    svgLine.setAttribute('y2', y2 + (dy / len) * ext);
+  }
+
+  // Update line after rendering & on resize
+  setTimeout(updateAxisLine, 60);
+  window.addEventListener('resize', updateAxisLine, { passive: true });
+}
+
+function initEducationJourney() {
+  renderEducation();
 }
 
 /* ---------------------------------------------------------------
