@@ -1626,7 +1626,7 @@ function initGitHubSection() {
 
 
 /* ---------------------------------------------------------------
-   19. EDUCATION SECTION – DIAGONAL TIMELINE (Image Replica)
+   19. EDUCATION SECTION – CLEAN CARDS (Reference Replica)
 --------------------------------------------------------------- */
 function renderEducation() {
   const container = document.getElementById('education-waterfall') || document.getElementById('education-timeline');
@@ -1634,206 +1634,34 @@ function renderEducation() {
 
   const items = [
     {
-      shortTitle:  'MCA',
-      degree:      'Master of Computer Applications (MCA)',
       institution: 'MIT Vishwaprayag University',
-      location:    'Solapur, Maharashtra',
-      duration:    '2025 – 2027',
-      grade:       null,
-      current:     true,
-      icon:        'fa-solid fa-graduation-cap',
-      color:       '#8B5CF6',
-      tint:        'rgba(139, 92, 246, 0.15)',
-      ring:        'rgba(139, 92, 246, 0.25)',
-      description: 'Currently pursuing MCA with specialization in Cloud Computing, Full Stack Development and AI/ML. Working on industry-level projects and collaborating with organizations.',
-      highlights:  ['Cloud Computing', 'AI / ML', 'Industry Collaborations'],
+      duration:    '2025 - 2027',
+      degree:      'Master in Computer Applications (MCA)',
     },
     {
-      shortTitle:  'BCA',
-      degree:      'Bachelor of Computer Applications (BCA)',
-      institution: 'Prin K.P. Mangalvedhekar Institute of Management C D & R',
-      location:    'Solapur, Maharashtra',
-      duration:    '2022 – 2025',
-      grade:       '73.60%',
-      current:     false,
-      icon:        'fa-solid fa-graduation-cap',
-      color:       '#0284C7',
-      tint:        'rgba(2, 132, 199, 0.15)',
-      ring:        'rgba(2, 132, 199, 0.25)',
-      description: 'Pursued BCA with deep focus on programming, databases, web development and software engineering. Won multiple coding competitions during this period.',
-      highlights:  ['Full Stack Dev', 'Database Design', 'Coding Competitions Winner'],
+      institution: 'Prin. K. P. Mangalvedhekar Institute',
+      duration:    '2022 - 2025',
+      degree:      'Bachelor in Computer Applications (BCA)',
     },
     {
-      shortTitle:  'HSC (12th)',
-      degree:      'HSC – 12th Standard (Science Stream)',
-      institution: 'Kuchan Junior College / Maharashtra State Board',
-      location:    'Solapur, Maharashtra',
-      duration:    '2020 – 2022',
-      grade:       '53.17%',
-      current:     false,
-      icon:        'fa-solid fa-book-open',
-      color:       '#10B981',
-      tint:        'rgba(16, 185, 129, 0.15)',
-      ring:        'rgba(16, 185, 129, 0.25)',
-      description: 'Completed higher secondary education with a Science stream, strengthening analytical thinking and problem-solving skills.',
-      highlights:  ['Science Stream', 'Analytical Thinking'],
+      institution: 'Kuchan Junior College',
+      duration:    '2020 - 2022',
+      degree:      'Higher Secondary Certificate (12th Science)',
     },
     {
-      shortTitle:  'SSC (10th)',
-      degree:      'SSC – 10th Standard',
-      institution: 'Kuchan High School / Maharashtra State Board',
-      location:    'Solapur, Maharashtra',
-      duration:    '2010 – 2020',
-      grade:       '55.60%',
-      current:     false,
-      icon:        'fa-solid fa-book-open',
-      color:       '#F59E0B',
-      tint:        'rgba(245, 158, 11, 0.15)',
-      ring:        'rgba(245, 158, 11, 0.25)',
-      description: 'Built the foundational academic base with core subjects in Science and Mathematics, igniting a curiosity for technology and computing.',
-      highlights:  ['Core Science & Maths', 'Foundation for Tech'],
+      institution: 'Kuchan High School',
+      duration:    '2010 - 2020',
+      degree:      'Secondary School Certificate (10th SSC)',
     },
   ];
 
-  /* Build Rows */
-  const rowsHTML = items.map((item, idx) => `
-    <div class="edu-diag-row edu-diag-row--${idx} ${item.current ? 'edu-diag-row--current' : ''}" data-aos="fade-up" data-aos-delay="${idx * 80}">
-      
-      <!-- Axis Node & Stem -->
-      <div class="edu-diag-track" aria-hidden="true">
-        <div class="edu-diag-node" style="border-color: ${item.color}; background: ${item.ring};">
-          <div class="edu-diag-dot" style="background: ${item.color};"></div>
-        </div>
-        <div class="edu-diag-stem" style="background: ${item.color};"></div>
-        <div class="edu-diag-pin" style="background: ${item.color};"></div>
-      </div>
-
-      <!-- Compact Card (Click to expand details) -->
-      <div class="edu-diag-card glass-card-hover" role="button" tabindex="0" aria-expanded="false" aria-label="${item.shortTitle} - Click to toggle details" style="--card-color: ${item.color}; --card-tint: ${item.tint};">
-        
-        <!-- Summary Row (Matches uploaded image) -->
-        <div class="edu-diag-summary">
-          <div class="edu-diag-icon-cell" style="background: ${item.tint}; color: ${item.color};">
-            <i class="${item.icon}" aria-hidden="true"></i>
-          </div>
-
-          <div class="edu-diag-info-cell">
-            <div class="edu-diag-badge-row">
-              <span class="edu-diag-year-pill" style="background: ${item.tint}; color: ${item.color};">
-                ${item.duration}
-              </span>
-              <span class="edu-diag-chevron" aria-hidden="true">
-                <i class="fa-solid fa-chevron-down"></i>
-              </span>
-            </div>
-
-            <h3 class="edu-diag-title">${item.shortTitle}</h3>
-            <p class="edu-diag-inst" title="${item.institution}">${item.institution}</p>
-            <p class="edu-diag-loc">
-              <i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${item.location}
-            </p>
-          </div>
-        </div>
-
-        <!-- Collapsible Details Drawer (Revealed on click) -->
-        <div class="edu-diag-details">
-          <div class="edu-diag-details-inner">
-            <div class="edu-diag-details-content">
-              
-              <div class="edu-diag-meta-pills">
-                ${item.current 
-                  ? `<span class="edu-diag-status-pill edu-diag-status--active">
-                       <span class="edu-diag-pulse"></span> Currently Pursuing
-                     </span>`
-                  : `<span class="edu-diag-status-pill edu-diag-status--done">
-                       <i class="fa-solid fa-circle-check"></i> Completed
-                     </span>`}
-                ${item.grade ? `
-                  <span class="edu-diag-status-pill edu-diag-status--grade">
-                    <i class="fa-solid fa-award"></i> Grade: <strong>${item.grade}</strong>
-                  </span>` : ''}
-              </div>
-
-              <p class="edu-diag-full-degree">
-                <i class="fa-solid fa-certificate" aria-hidden="true"></i> ${item.degree}
-              </p>
-
-              <p class="edu-diag-desc">${item.description}</p>
-
-              ${item.highlights && item.highlights.length ? `
-                <div class="edu-diag-tags">
-                  ${item.highlights.map(h => `<span class="edu-diag-tag">${h}</span>`).join('')}
-                </div>` : ''}
-
-            </div>
-          </div>
-        </div>
-
-      </div>
+  container.innerHTML = items.map((item, idx) => `
+    <div class="edu-card" data-aos="fade-up" data-aos-delay="${idx * 70}">
+      <h3 class="edu-card-school">${item.institution}</h3>
+      <p class="edu-card-year">${item.duration}</p>
+      <p class="edu-card-degree">${item.degree}</p>
     </div>
   `).join('');
-
-  container.innerHTML = `
-    <div class="edu-diag-container">
-      <svg class="edu-diag-svg-axis" aria-hidden="true">
-        <line id="edu-diag-axis-line" stroke="rgba(203, 213, 225, 0.28)" stroke-width="2.5" stroke-linecap="round"></line>
-      </svg>
-      <div class="edu-diag-rows">
-        ${rowsHTML}
-      </div>
-    </div>
-  `;
-
-  /* Interactive Click & Keyboard Handlers */
-  const cards = container.querySelectorAll('.edu-diag-card');
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const isExpanded = card.classList.contains('edu-diag-card--expanded');
-      card.classList.toggle('edu-diag-card--expanded');
-      card.setAttribute('aria-expanded', !isExpanded);
-      requestAnimationFrame(updateAxisLine);
-    });
-
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.click();
-      }
-    });
-  });
-
-  /* Calculate dynamic SVG diagonal line passing through all node centers */
-  function updateAxisLine() {
-    const svgLine = document.getElementById('edu-diag-axis-line');
-    const nodes = container.querySelectorAll('.edu-diag-node');
-    const wrapper = container.querySelector('.edu-diag-container');
-    if (!svgLine || nodes.length < 2 || !wrapper) return;
-
-    const wrapRect = wrapper.getBoundingClientRect();
-    const firstRect = nodes[0].getBoundingClientRect();
-    const lastRect = nodes[nodes.length - 1].getBoundingClientRect();
-
-    const x1 = firstRect.left + firstRect.width / 2 - wrapRect.left;
-    const y1 = firstRect.top + firstRect.height / 2 - wrapRect.top;
-    const x2 = lastRect.left + lastRect.width / 2 - wrapRect.left;
-    const y2 = lastRect.top + lastRect.height / 2 - wrapRect.top;
-
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const len = Math.sqrt(dx * dx + dy * dy);
-    if (len === 0) return;
-
-    const ext = window.innerWidth >= 821 ? 38 : 16;
-
-    svgLine.setAttribute('x1', x1 - (dx / len) * ext);
-    svgLine.setAttribute('y1', y1 - (dy / len) * ext);
-    svgLine.setAttribute('x2', x2 + (dx / len) * ext);
-    svgLine.setAttribute('y2', y2 + (dy / len) * ext);
-  }
-
-  // Update line after rendering & on resize
-  setTimeout(updateAxisLine, 60);
-  window.addEventListener('resize', updateAxisLine, { passive: true });
 }
 
 function initEducationJourney() {
