@@ -1645,12 +1645,12 @@ function renderEducation() {
     },
     {
       institution: 'Kuchan Junior College',
-      duration:    '2020 - 2022',
+      duration:    '2021 - 2022',
       degree:      'Higher Secondary Certificate (12th Science)',
     },
     {
       institution: 'Kuchan High School',
-      duration:    '2010 - 2020',
+      duration:    '2019 - 2020',
       degree:      'Secondary School Certificate (10th SSC)',
     },
   ];
